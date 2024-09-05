@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Prediction</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #02306d, #0f60ec, #6f9ff1);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            font-size: 28px;
+            color: #ffffff;
+            background: -webkit-linear-gradient(45deg, #2575fc, #6a11cb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+            font-size: 20px;
+            color: #333;
+            display: block;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+        input[type="number"], input[type="text"], textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            background-color: #f9f9f9;
+            transition: border-color 0.3s ease-in-out;
+        }
+        input[type="number"]:focus, input[type="text"]:focus, textarea:focus {
+            border-color: #6a11cb;
+            outline: none;
+        }
+        textarea {
+            height: 50px;
+            resize: none;
+        }
+        button {
+            background-color: #2575fc;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 21px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+        button:hover {
+            background-color: #6a11cb;
+        }
+        .prediction {
+            background-color: #edeff5;
+            color: #3d057e;
+            padding: 15px;
+            font-weight: bolder;
+            margin-top: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 22px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-in-out;
+        }
+        .doctor-recommendation {
+            margin-top: 10px;
+            color: #fff;
+            font-weight: bold;
+            font-size: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: #3076e0;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .doctor-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #e21717;
+            margin-right: 10px;
+        }
+        .cabin-number {
+            font-size: 24px;
+            color: #ffe100;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Medical Recommendation Prediction</h1>
+        <form action="/predict" method="post">
+            <label>Patient_ID:</label>
+            <input type="number" name="patient_id" required>
+
+            <label>Age:</label>
+            <input type="number" name="age" required>
+            
+            <label>Past Medication Done (0 for No, 1 for Yes):</label>
+            <textarea  name="past_medication_done" required></textarea>
+            
+            <label>Allergies:</label>
+            <textarea name="allergies" required></textarea>
+            
+            <label>Chronic Condition:</label>
+            <textarea name="chronic_condition" required></textarea>
+            
+            <label>Surgeries:</label>
+            <textarea name="surgeries" required></textarea>
+            
+            <label>Disease Condition:</label>
+            <textarea name="disease_condition" required></textarea>
+            
+            <label>Patient Condition:</label>
+            <textarea name="patient_condition" required></textarea>
+            
+
+            <button type="submit">Predict Recommendation</button>
+        </form>
+        <br>
+        {% if prediction_text %}
+            <div class="prediction">{{ prediction_text }}</div>
+            {% if doctor_recommendation %}
+                <div class="doctor-recommendation">
+                    <span> Please visit</span> &nbsp;&nbsp;
+                    <span class="doctor-name">{{ session['doctor_name'] }}</span> 
+                    <span> in</span> &nbsp;&nbsp;
+                    <span class="cabin-number">Cabin No: #{{ session['cabin_number'] }}</span>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+</body>
+</html>

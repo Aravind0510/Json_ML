@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insurance Plan Prediction</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #1a4cee, #0da8e6);
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #2f1396;
+            margin-bottom: 20px;
+            font-size: 28px;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+            font-size: 20px;
+        }
+
+        input[type="number"],
+        input[type="text"],
+        textarea {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        input[type="number"]:focus,
+        input[type="text"]:focus,
+        textarea:focus {
+            border-color: #2ebf91;
+            outline: none;
+        }
+
+        button {
+            padding: 12px;
+            background-color: #1a7bd6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            font-size: 20px;
+        }
+
+        button:hover {
+            background-color: #8b17e9;
+        }
+
+        .prediction {
+            background-color: #f9f9f9;
+            color: #2ebf91;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 22px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        /* Animation for the prediction result */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Ensure responsive layout */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            button {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Insurance Plan Prediction</h1>
+        <form action="/predict" method="post">
+            <label for="patient_id">Patient ID:</label>
+            <input type="number" name="patient_id" id="patient_id" required>
+
+            <label for="age">Age:</label>
+            <input type="number" name="age" id="age" required>
+
+            <label for="past_medication_done">Past Medication Done (No or Yes):</label>
+            <textarea name="past_medication_done" required></textarea>
+
+            <label for="allergies">Allergies:</label>
+            <textarea name="allergies" id="allergies" rows="2" required></textarea>
+
+            <label for="chronic_condition">Chronic Condition:</label>
+            <textarea name="chronic_condition" id="chronic_condition" rows="2" required></textarea>
+
+            <label for="surgeries">Surgeries:</label>
+            <textarea name="surgeries" id="surgeries" rows="2" required></textarea>
+
+            <label for="disease_condition">Disease Condition:</label>
+            <textarea name="disease_condition" id="disease_condition" rows="2" required></textarea>
+
+            <label for="patient_condition">Patient Condition:</label>
+            <textarea name="patient_condition" id="patient_condition" rows="2" required></textarea>
+
+            <label for="previous_insurance_claims">Previous Insurance Claims (0 for No, 1 for Yes):</label>
+            <input type="number" name="previous_insurance_claims" min="0" max="1" required>
+
+            <button type="submit">Predict Insurance Plan</button>
+        </form>
+
+        {% if prediction_text %}
+            <div class="prediction">
+                <h2>{{ prediction_text }}</h2>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
